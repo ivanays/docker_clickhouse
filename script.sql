@@ -43,5 +43,7 @@ USE main;
 -- Для проверки делаем запрос на чтение данных из таблицы autobrand_models базы данных main для user1 с ролью mainselect (права на чтение). Результат запроса - screen.png
 SELECT (*) FROM main.autobrand_models;
 
+-- https://github.com/ivanays/docker_clickhouse.git - этот репозитарий был клонирован. Выполнены все вышеописанные запросы и зделаны соответственно скрины (папка screens)
+
 
 
