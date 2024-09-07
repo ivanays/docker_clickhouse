@@ -1,3 +1,4 @@
+-- Подключаемся к clickhouse как пользовватель default (без пароля)
 -- Создаём базу данных test
 CREATE DATABASE IF NOT EXISTS test;
 
@@ -19,32 +20,28 @@ PRIMARY KEY (model_id)
 INSERT INTO main.autobrand_models (*) VALUES (1, 'AUDI');
 
 -- Создаём роль mainselect
-CREATE ROLE mainselect;
+CREATE ROLE IF NOT EXISTS mainselect;
 
 -- Предоставляем права на чтение роли mainselect в базе данных main
-GRANT SELECT ON db.main TO mainselect;
+GRANT SELECT ON main.* TO mainselect;
 
 -- Создаём роль maininsert
-CREATE ROLE maininsert;
+CREATE ROLE IF NOT EXISTS maininsert;
 
 -- Предоставляем права на запись роли maininsert в базе данных main
-GRANT INSERT ON db.main TO maininsert;
+GRANT INSERT ON main.* TO maininsert;
 
--- Создаём пользователя driver
-CREATE USER IF NOT EXISTS driver;
+-- Создаём пользователя user1
+CREATE USER IF NOT EXISTS user1;
 
--- Назначаем роль mainselect пользователю driver (права на чтение базы данный main)
-GRANT mainselect TO driver;
+-- Назначаем роль mainselect пользователю user1 (права на чтение из базы данных main)
+GRANT mainselect TO user1;
 
--- Логинимся в DBeaver как пользователь driver и применяем роль mainselect
-SET ROLE mainselect;
-
+-- В DBeaver отключаем соединение с clickhouse и удаляем его. Затем как пользователь user1 подключаемся к clickhouse к базе данных main (также без пароля).
 USE main;
 
--- Результат запроса на чтение данных из таблицы autobrand_models базы данных main - screen1.png
+-- Для проверки делаем запрос на чтение данных из таблицы autobrand_models базы данных main для user1 с ролью mainselect (права на чтение). Результат запроса - screen.png
 SELECT (*) FROM main.autobrand_models;
 
--- Результат запроса на запись данных в таблицу autobrand_models базы данных main - screen2.png
-INSERT INTO main.autobrand_models (*) VALUES (2, 'BMW');
 
 

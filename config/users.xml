@@ -91,20 +91,12 @@
             <named_collection_control>1</named_collection_control>
 
             <!-- User permissions can be granted here -->
-            <!--
-            <grants>
+            
+            <!-- <grants>
                 <query>GRANT ALL ON *.*</query>
-            </grants>
-            -->
+            </grants> -->
+           
         </default>
-        <root>
-            <password>nometro23</password>
-            <access_management>1</access_management>
-        </root>
-        <ivanays>
-            <password>nometro23</password>
-            <access_management>1</access_management>
-        </ivanays>
     </users>
 
     <!-- Quotas. -->
